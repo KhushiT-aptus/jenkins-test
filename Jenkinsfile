@@ -22,16 +22,22 @@ pipeline {
             }
         }
 
+        
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarServer') {
-                    sh """
-                        sonar-scanner \
-                        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.login=${SONAR_TOKEN}
-                    """
+                    script {
+                        def scannerHome = tool 'sonar-scanner'
+                        try {
+                            sh """
+                                echo "Using sonar-scanner from: ${scannerHome}"
+                                ${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=backend-analysis -Dsonar.sources=.
+                            """
+                        } catch (Exception e) {
+                            echo "SonarQube analysis failed: ${e}"
+                            throw e
+                        }
+                    }
                 }
             }
         }
