@@ -30,10 +30,13 @@ pipeline {
                         def scannerHome = tool 'sonar-scanner'
                         try {
                             sh """
-                                echo "Using sonar-scanner from: ${scannerHome}"
-                                ${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=backend-analysis -Dsonar.sources=.
-                                -Dsonar.branch.name=${env.BRANCH_NAME}
-                            """
+  echo "Using sonar-scanner from: ${scannerHome}"
+  ${scannerHome}/bin/sonar-scanner -X \
+    -Dsonar.projectKey=backend-analysis \
+    -Dsonar.sources=. \
+    -Dsonar.branch.name=${env.BRANCH_NAME}
+"""
+
                         } catch (Exception e) {
                             echo "SonarQube analysis failed: ${e}"
                             throw e
