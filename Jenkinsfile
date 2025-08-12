@@ -36,7 +36,7 @@ pipeline {
                     } else if (env.BRANCH_NAME == "main") {
                         projectKey = "myapp"
                     } else {
-                        echo "Branch not mapped to Sonar project, skipping Sonar analysis."
+                        projectKey = "myapp-feature-${branch.replaceAll('/', '-')}"
                         return
                     }
                         try {
