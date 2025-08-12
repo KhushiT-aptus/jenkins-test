@@ -6,4 +6,4 @@ app = FastAPI(title="Demo FastAPI App", version="1.0.0")
 
 @app.get("/")
 def root():
-    return {"message": "Hello from FastAPI"}
+    return {"message": "Hello from PIE Application"}
