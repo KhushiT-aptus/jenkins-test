@@ -36,7 +36,8 @@ pipeline {
                     } else if (env.BRANCH_NAME == "main") {
                         projectKey = "myapp"
                     } else {
-                        projectKey = "myapp-feature-${branch.replaceAll('/', '-')}"
+                        default:
+                        projectKey = "myapp-feature-${env.BRANCH_NAME.replaceAll('/', '-')}"
                         
                     }
                         try {
