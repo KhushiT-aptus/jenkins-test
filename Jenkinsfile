@@ -37,7 +37,7 @@ pipeline {
                         projectKey = "myapp"
                     } else {
                         projectKey = "myapp-feature-${branch.replaceAll('/', '-')}"
-                        return
+                        
                     }
                         try {
                             sh """
