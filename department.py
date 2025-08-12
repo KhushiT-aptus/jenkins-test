@@ -1,1 +1,1 @@
-print(:department")
+print("department")
