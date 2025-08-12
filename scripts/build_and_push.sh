@@ -5,7 +5,7 @@ REGISTRY="$2"
 PASSWORD="$3"
 USERNAME="$4"
 
-docker build -tag "$IMAGE_TAG" .
+docker build -t "$IMAGE_TAG" .
 echo "$PASSWORD" | docker login "$REGISTRY" -u "$USERNAME" --password-stdin
 docker push "$IMAGE_TAG"
 docker logout "$REGISTRY"
