@@ -1,2 +1,10 @@
 this is test file
 hen you enable versioning in a bucket, all new objects are versioned and given a unique version ID. Objects that already existed in the buckemmmmmmmmmmmmt at the time
+this is test file   i have a test dev se up done
+Backend Design & Architecture Document
+Project Name: Multi-Organization AI Chatbot Platform
+Integration Type: Embedded chatbot in third-party services
+Architecture Type: Microservices with Multi-Tenant Suppor
+
+1. System Overview
+The AI chatbot management system is designed to serve multiple organizations with isolated configurations, role-based access control (RBAC), and department-level knowledge bases. The chatbot can be embedded into existing third-party applications, while a dashboard UI supports administrative tasks such as uer mangement, organization creation, c configuration & anagement and analytics.

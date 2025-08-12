@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  fastapi-app:
+    build: .
+    container_name: fastapi_demo
+    ports:
+      - "8000:8000"
+    environment:
+      ENVIRONMENT: "dev"  
+    restart: unless-stopped
