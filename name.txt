@@ -4,4 +4,4 @@ Integration Type: Embedded chatbot in third-party services
 Architecture Type: Microservices with Multi-Tenant Support
 
 1. System Overview
-The AI chatbot management system is designed to serve multiple organizations with isolated configurations, role-based access control (RBAC), and department-level knowledge bases. The chatbot can be embedded into existing third-party applications, while a dashboard UI supports administrative tasks such as user management, organization creation, chatbot configuration & management and analyti
+The AI chatbot management system is designed to serve multiple organizations with isolated configurat, role-based access control (RBAC), and department-level knowledge bases. The chatbot can be embedded into existing third-party applications, while a dashboard UI supports administrative tasks such as user management, organization creation, chatbot configuration & management and analyti
