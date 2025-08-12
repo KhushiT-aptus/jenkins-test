@@ -28,11 +28,25 @@ pipeline {
                 withSonarQubeEnv('SonarServer') {
                     script {
                         def scannerHome = tool 'sonar-scanner'
+                        def projectKey = ""
+                    if (env.BRANCH_NAME == "dev") {
+                        projectKey = "myapp-develop"
+                    } else if (env.BRANCH_NAME == "staging") {
+                        projectKey = "myapp-staging"
+                    } else if (env.BRANCH_NAME == "main") {
+                        projectKey = "myapp"
+                    } else {
+                        echo "Branch not mapped to Sonar project, skipping Sonar analysis."
+                        return
+                    }
                         try {
                             sh """
-                                echo "Using sonar-scanner from: ${scannerHome}"
-                                ${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=backend-analysis -Dsonar.sources=.
-                            """
+  echo "Using sonar-scanner from: ${scannerHome}"
+  ${scannerHome}/bin/sonar-scanner -X \
+   -Dsonar.projectKey=${projectKey} \
+    -Dsonar.sources=. 
+"""
+
                         } catch (Exception e) {
                             echo "SonarQube analysis failed: ${e}"
                             throw e
@@ -44,7 +58,7 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 10, unit: 'MINUTES') {
+                timeout(time: 2, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
