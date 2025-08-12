@@ -5,6 +5,11 @@ pipeline {
         SONAR_PROJECT_KEY = 'backend-analysis'
         SONAR_HOST_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = credentials('sonar-token')
+
+        DOCKER_REGISTRY = "info@aptusdatalabs.com.com"
+        DOCKER_IMAGE = "pie/backend-service"
+        DOCKER_CREDS = credentials('docker-creds')
+        DEPLOY_SERVER = "aptus@192.168.1.235"
     }
 
     stages {
@@ -15,13 +20,6 @@ pipeline {
                     credentialsId: 'git-cred'
             }
         }
-
-        stage('Build') {
-            steps {
-                echo 'Building project...'
-            }
-        }
-
         
         stage('SonarQube Analysis') {
             steps {
@@ -50,6 +48,20 @@ pipeline {
             }
         }
 
+        stage('Docker Build & Push') {
+            steps {
+                echo "Building the project using Docker ...."
+                sh """
+                    chmod +x scripts/build_and_push.sh
+                    ./scripts/build_and_push.sh \
+                        $DOCKER_REGISTRY/$DOCKER_IMAGE:${BUILD_NUMBER} \
+                        $DOCKER_REGISTRY \
+                        $DOCKER_CREDS_PSW \
+                        $DOCKER_CREDS_USR
+                """
+            }
+        }
+
         stage('Deploy') {
             when {
                 anyOf {
@@ -59,14 +71,16 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    if (env.BRANCH_NAME == 'dev') {
-                        echo 'deploying project... to dev'
-                    } else if (env.BRANCH_NAME == 'staging') {
-                        echo 'Building project... to uat'
-                    } else if (env.BRANCH_NAME == 'main') {
-                       echo 'deploying to main'
-                    }
+                sshagent(['deploy-ssh']){
+                   sh """
+                       chmod +x ./scripts/deploy_compose.sh \
+                            $DEPLOY_SERVER \
+                            $DOCKER_REGISTRY \
+                            $DOCKER_IMAGE \
+                            ${BUILD_NUMBER} \
+                            $DOCKER_CREDS_USR \
+                            $DOCKER_CREDS_PSW
+                    """
                 }
             }
         }
