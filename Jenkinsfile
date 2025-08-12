@@ -39,12 +39,11 @@ pipeline {
                     }
                         try {
                             sh """
-  echo "Using sonar-scanner from: ${scannerHome}"
-  ${scannerHome}/bin/sonar-scanner -X \
-   -Dsonar.projectKey=${projectKey} \
-    -Dsonar.sources=. 
-"""
-
+                                echo "Using sonar-scanner from: ${scannerHome}"
+                                ${scannerHome}/bin/sonar-scanner -X \
+                                -Dsonar.projectKey=${projectKey} \
+                                    -Dsonar.sources=. 
+                                """
                         } catch (Exception e) {
                             echo "SonarQube analysis failed: ${e}"
                             throw e
