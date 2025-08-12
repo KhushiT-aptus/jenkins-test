@@ -44,8 +44,7 @@ pipeline {
   echo "Using sonar-scanner from: ${scannerHome}"
   ${scannerHome}/bin/sonar-scanner -X \
    -Dsonar.projectKey=${projectKey} \
-    -Dsonar.sources=. \
-    -Dsonar.branch.name=${env.BRANCH_NAME}
+    -Dsonar.sources=. 
 """
 
                         } catch (Exception e) {
