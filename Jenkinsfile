@@ -83,9 +83,10 @@ pipeline {
                 }
             }
             steps {
-                sshagent(['deploy-ssh']){
-                   sh """
-                       chmod +x ./scripts/deploy_compose.sh && ./scripts/deploy_compose.sh \                  
+                sshagent(['deploy-ssh']) {
+                    sh """
+                        chmod +x ./scripts/deploy_compose.sh
+                        ./scripts/deploy_compose.sh \
                             $DEPLOY_SERVER \
                             $DOCKER_REGISTRY \
                             $DOCKER_IMAGE \
