@@ -10,7 +10,7 @@ PASSWORD="$6"
 ssh -o StrictHostKeyChecking=no "$SERVER" "
     echo '$PASSWORD' | docker login $REGISTRY -u $USERNAME --password-stdin &&
     export TAG=$TAG &&
-    cd /home/aptus/pie-dev-dir/pie_new_backend &&
+    cd /home/aptus/jenkins-test &&
     docker-compose pull &&
     docker-compose up -d --remove-orphans
 "
