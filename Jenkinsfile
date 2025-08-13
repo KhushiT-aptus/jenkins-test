@@ -6,8 +6,8 @@ pipeline {
         SONAR_HOST_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = credentials('sonar-token')
 
-        DOCKER_REGISTRY = "aptusdatalabs.com"
-        DOCKER_IMAGE = "backend-service"
+        DOCKER_REGISTRY = "docker.io"
+        DOCKER_IMAGE = "aptusdatalabstech/backend-service"
         DOCKER_CREDS = credentials('docker-creds')
         DEPLOY_SERVER = "aptus@192.168.1.235"
     }
