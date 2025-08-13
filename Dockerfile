@@ -1,5 +1,5 @@
 # Use official Python base image
-FROM python:3.11-slim
+FROM python:3.10.16-slim
 
 # Create a non-root user
 RUN useradd -m jenkin-user
