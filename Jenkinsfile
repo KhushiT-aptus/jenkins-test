@@ -8,7 +8,9 @@ pipeline {
 
         DOCKER_REGISTRY = "docker.io"
         DOCKER_IMAGE = "aptusdatalabstech/backend-service"
-        DOCKER_CREDS = credentials('docker-creds')
+        // DOCKER_CREDS = credentials('docker-creds')
+        DOCKER_CREDS_USR = credentials('docker-creds', 'username')
+        DOCKER_CREDS_PSW = credentials('docker-creds', 'password')
         DEPLOY_SERVER = "aptus@192.168.1.235"
     }
 
