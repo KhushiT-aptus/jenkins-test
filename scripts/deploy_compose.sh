@@ -40,10 +40,10 @@ fi
 cd /home/aptus/jenkins-test
 
 echo "[REMOTE] Pulling updated images..."
-docker-compose pull || { echo "[REMOTE ERROR] Docker compose pull failed."; exit 1; }
+docker compose pull || { echo "[REMOTE ERROR] Docker compose pull failed."; exit 1; }
 
 echo "[REMOTE] Starting services..."
-docker-compose up -d --remove-orphans || { echo "[REMOTE ERROR] Docker compose up failed."; exit 1; }
+docker compose up -d --remove-orphans || { echo "[REMOTE ERROR] Docker compose up failed."; exit 1; }
 
 echo "[REMOTE] Deployment successful!"
 EOF
