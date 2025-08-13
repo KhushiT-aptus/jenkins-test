@@ -8,9 +8,7 @@ pipeline {
 
         DOCKER_REGISTRY = "docker.io"
         DOCKER_IMAGE = "aptusdatalabstech/backend-service"
-        // DOCKER_CREDS = credentials('docker-creds')
-        DOCKER_CREDS_USR = credentials('docker-creds', 'username')
-        DOCKER_CREDS_PSW = credentials('docker-creds', 'password')
+        DOCKER_CREDS = credentials('docker-creds')
         DEPLOY_SERVER = "aptus@192.168.1.235"
     }
 
@@ -71,8 +69,7 @@ pipeline {
                     ./scripts/build_and_push.sh \
                         $DOCKER_REGISTRY/$DOCKER_IMAGE:${BUILD_NUMBER} \
                         $DOCKER_REGISTRY \
-                        $DOCKER_CREDS_PSW \
-                        $DOCKER_CREDS_USR
+                        $DOCKER_CREDS
                 """
             }
         }

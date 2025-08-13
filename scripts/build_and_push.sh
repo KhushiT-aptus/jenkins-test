@@ -1,17 +1,16 @@
 #!/bin/bash
 set -e
+
 IMAGE_TAG="$1"
 REGISTRY="$2"
-PASSWORD="$3"
-USERNAME="$4"
+CREDS="$3"  
 
-if [ -z "$IMAGE_TAG" ] || [ -z "$DOCKER_REGISTRY" ] || [ -z "$DOCKER_PASSWORD" ] || [ -z "$DOCKER_USERNAME" ]; then
-    echo "Usage: $0 <image_tag> <registry> <password> <username>"
-    exit 1
-fi
+# username and password extractions from creds
+USERNAME=$(echo "$CREDS" | cut -d':' -f1)
+PASSWORD=$(echo "$CREDS" | cut -d':' -f2)
 
-echo "🔹 Logging into Docker registry: $DOCKER_REGISTRY"
-echo "$DOCKER_PASSWORD" | docker login "$DOCKER_REGISTRY" -u "$DOCKER_USERNAME" --password-stdin
+echo "🔹 Logging into Docker registry: $REGISTRY"
+echo "$PASSWORD" | docker login "$REGISTRY" -u "$USERNAME" --password-stdin
 
 echo "🔹 Building Docker image: $IMAGE_TAG"
 docker build -t "$IMAGE_TAG" .
@@ -19,4 +18,4 @@ docker build -t "$IMAGE_TAG" .
 echo "🔹 Pushing Docker image: $IMAGE_TAG"
 docker push "$IMAGE_TAG"
 
-echo "Pushed Image Successfully"
+echo "✅ Pushed Image Successfully"
