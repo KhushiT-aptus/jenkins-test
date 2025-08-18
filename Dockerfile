@@ -30,4 +30,5 @@ EXPOSE 8000
 
 # Run FastAPI with uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["pytest", "--maxfail=1", "--disable-warnings", "-q"]
 
