@@ -60,6 +60,15 @@ pipeline {
                 }
             }
         }
+        stage('Unit Tests') {
+    steps {
+        sh """
+            pip install -r requirements.txt
+            pytest --maxfail=1 --disable-warnings -q
+        """
+    }
+}
+
 
         stage('Docker Build & Push') {
             steps {
