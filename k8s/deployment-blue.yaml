@@ -17,5 +17,6 @@ spec:
       containers:
         - name: jenkins-test
           image: khushi2803/jenkins-test:staging
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
