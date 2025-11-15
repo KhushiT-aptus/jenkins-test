@@ -1,0 +1,5 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  # FastAPI metrics to be added later

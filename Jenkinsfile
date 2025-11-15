@@ -6,8 +6,8 @@ pipeline {
         SONAR_HOST_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = credentials('sonar-token')
 
-        DOCKER_REGISTRY = "aptusdatalabs.com"
-        DOCKER_IMAGE = "backend-service"
+        DOCKER_REGISTRY = "docker.io"
+        DOCKER_IMAGE = "aptusdatalabstech/backend-service"
         DOCKER_CREDS = credentials('docker-creds')
         DEPLOY_SERVER = "aptus@192.168.1.235"
     }
@@ -60,6 +60,14 @@ pipeline {
                 }
             }
         }
+//         stage('Unit Tests') {
+//     steps {
+//         sh """
+//             pytest --maxfail=1 --disable-warnings -q
+//         """
+//     }
+// }
+
 
         stage('Docker Build & Push') {
             steps {
@@ -69,8 +77,7 @@ pipeline {
                     ./scripts/build_and_push.sh \
                         $DOCKER_REGISTRY/$DOCKER_IMAGE:${BUILD_NUMBER} \
                         $DOCKER_REGISTRY \
-                        $DOCKER_CREDS_PSW \
-                        $DOCKER_CREDS_USR
+                        $DOCKER_CREDS
                 """
             }
         }
@@ -84,9 +91,10 @@ pipeline {
                 }
             }
             steps {
-                sshagent(['deploy-ssh']){
-                   sh """
-                       chmod +x ./scripts/deploy_compose.sh \
+                sshagent(['deploy-ssh']) {
+                    sh """
+                        chmod +x ./scripts/deploy_compose.sh
+                        ./scripts/deploy_compose.sh \
                             $DEPLOY_SERVER \
                             $DOCKER_REGISTRY \
                             $DOCKER_IMAGE \
