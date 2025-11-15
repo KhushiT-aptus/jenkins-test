@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-test-green
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jenkins-test
+      version: green
+  template:
+    metadata:
+      labels:
+        app: jenkins-test
+        version: green
+    spec:
+      containers:
+        - name: jenkins-test
+          image: khushi2803/jenkins-test:staging
+          ports:
+            - containerPort: 80

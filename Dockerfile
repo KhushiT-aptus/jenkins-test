@@ -15,15 +15,15 @@ COPY requirements.txt .
 
 # Create logs directory and give ownership to jenkin-user
 #RUN mkdir -p /app/logs && chown -R jenkin-user:jenkin-user /app/logs
-RUN pip install --no-cache-dir -r requirements.txt && \
-    mkdir -p /app/logs && \
-    chown -R jenkin-user:jenkin-user /app/logs
+RUN pip install --no-cache-dir -r requirements.txt 
+    # mkdir -p /app/logs && \
+    # chown -R jenkin-user:jenkin-user /app/logs
 
 # Copy the FastAPI app
 COPY main.py .
 
 # Switch to non-root user
-USER jenkin-user
+
 
 # Expose port
 EXPOSE 8000
